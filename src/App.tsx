@@ -35,6 +35,13 @@ function App() {
     const changeFilter = (shopListID: string, newFilterValue: FilterType) => {
         setShopList(shopList.map(el => el.id === shopListID ? {...el, filter: newFilterValue} : el))
     }
+    const changeTitleForTodolist = (shopListID: string, newTitle: string) => {
+        setShopList(shopList.map(el => el.id === shopListID ? {...el, title: newTitle} : el))
+    }
+
+   const changeTitleForTasks = (shopListID: string,itemId:string, newTitle: string) => {
+       setThingsToBuy({...thingsToBuy ,[shopListID]:thingsToBuy[shopListID].map(el=>el.id === itemId ? {...el,title:newTitle}: el) })
+    }
 
     const changeCartStatus = (shopListID: string, itemID: string, checked: boolean) => {
         setThingsToBuy({
@@ -86,6 +93,8 @@ function App() {
                         changeCheckBox={changeCartStatus}
                         filterValue={el.filter}
                         removeShopList={removeShopList}
+                        changeTitleForTodolist={changeTitleForTodolist}
+                        changeTitleForTasks={changeTitleForTasks}
                     />
                 )
             })}

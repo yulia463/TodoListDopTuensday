@@ -2,11 +2,12 @@ import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilterType, ShopListPropsType} from './Typisation';
 import s from './App.module.css'
 import {UniversalFieldInput} from "./components/UniversalFieldInput";
+import {UniversalSpan} from "./components/UniversalSpan";
 
 export const ShopList = (props: ShopListPropsType) => {
-    const [rezim, setRezim] = useState(false)
 
-    const [changeTitle, setChangeTitle] = useState(props.title)
+    ////const [redactorForTasks, setRedactorForTasks] = useState(false)
+
 
     const onClickFilterButtonHandler = (value: FilterType) => {
         props.changeFilter(props.shopId, value)
@@ -23,30 +24,11 @@ export const ShopList = (props: ShopListPropsType) => {
         props.removeShopList(props.shopId)
     }
 
-    const onBlurHandler = () => {
-        setRezim(false)
 
-    }
     return (
         <div className="shoplist">
-            {rezim
-                ? <input
-                    type={'text'}
-                    onBlur={onBlurHandler}
-                    autoFocus
-                    value={changeTitle}
-                    onChange={(e) => {
-                        setChangeTitle(e.currentTarget.value)
-                    }}/>
-                : <span
-                    onDoubleClick={() => {
-                        setRezim(true)
-                    }}>
-                    <h3>{props.title}</h3></span>}
-            <span>
-                       <button onClick={deleteShopListHandler}>X</button>
-                   </span>
-            <hr/>
+            <UniversalSpan title={props.title} callback={(newTitle)=>{props.changeTitleForTodolist(props.shopId,newTitle)}}/>
+            <span><button onClick={deleteShopListHandler}>X</button></span>
 
             <UniversalFieldInput callback={addTask}/>
             <ol>
@@ -59,10 +41,16 @@ export const ShopList = (props: ShopListPropsType) => {
                         const ex = Number(item.expectedPrice.replace(/[$]/g, ''));
                         const real = Number(item.realPrice.replace(/[$]/g, ''));
                         const colorPrice = ex >= real ? s.goodPrice : s.badPrice;
+                        const callBackHandler = (newTitle:string) => {
+                            props.changeTitleForTasks(props.shopId, item.id,newTitle)
+                        }
 
                         return (
                             <li key={item.id} className={item.inCart ? s.shopList : ''}>
-                                <div><b>{item.title}</b>
+                                <hr/>
+                                <div>
+                                    <UniversalSpan title={item.title} callback={callBackHandler}/>
+
                                     <button onClick={() => {
                                         props.deleteItemShop(props.shopId, item.id)
                                     }}> -x-
