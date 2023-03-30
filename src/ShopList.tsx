@@ -42,7 +42,7 @@ export const ShopList = (props: ShopListPropsType) => {
                         const real = Number(item.realPrice.replace(/[$]/g, ''));
                         const colorPrice = ex >= real ? s.goodPrice : s.badPrice;
                         const callBackHandler = (newTitle:string) => {
-                            props.changeTitleForTasks(props.shopId, item.id,newTitle)
+                            props.changeTitleForTasks(props.shopId, item.id, newTitle)
                         }
 
                         return (
