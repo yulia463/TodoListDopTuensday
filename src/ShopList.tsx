@@ -8,7 +8,6 @@ export const ShopList = (props: ShopListPropsType) => {
 
     ////const [redactorForTasks, setRedactorForTasks] = useState(false)
 
-
     const onClickFilterButtonHandler = (value: FilterType) => {
         props.changeFilter(props.shopId, value)
     }

@@ -66,6 +66,7 @@ function App() {
         setShopList([newShopList, ...shopList])
         setThingsToBuy({...thingsToBuy, [newID]: []})
     }
+
     const removeShopList = (shopListID: string) => {
         setShopList(shopList.filter(el => el.id !== shopListID))
         delete thingsToBuy[shopListID]
