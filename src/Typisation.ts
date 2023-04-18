@@ -13,15 +13,16 @@ export type ThingsToBuyPropsType = {
 export type ShopListPropsType = {
     shopId: string
     title: string
-    whatToBuy: ThingsToBuyPropsType[]
-    deleteItemShop: (shopListID: string, itemID: string) => void
-    changeFilter: (shoplistID: string, newFilterValue: FilterType) => void
-    addTask: (shopListID: string, newTitle: string) => void
-    changeCheckBox: (shopListID: string, itemID: string, checked: boolean) => void
-    filterValue: FilterType
-    removeShopList: (shopListID: string) => void
-    changeTitleForTodolist: (shopListID: string, newTitle: string) => void
-    changeTitleForTasks: (shopListID: string, itemId: string, newTitle: string) => void
+    filter:FilterType
+    // whatToBuy: ThingsToBuyPropsType[]
+    // deleteItemShop: (shopListID: string, itemID: string) => void
+    // changeFilter: (shoplistID: string, newFilterValue: FilterType) => void
+    // addTask: (shopListID: string, newTitle: string) => void
+    // changeCheckBox: (shopListID: string, itemID: string, checked: boolean) => void
+    // filterValue: FilterType
+    // removeShopList: (shopListID: string) => void
+    // changeTitleForTodolist: (shopListID: string, newTitle: string) => void
+    // changeTitleForTasks: (shopListID: string, itemId: string, newTitle: string) => void
 }
 export type ListPropsType = {
     id: string

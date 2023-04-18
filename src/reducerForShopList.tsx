@@ -1,5 +1,5 @@
 import React from "react";
-import {ListPropsType} from "./Typisation";
+import {FilterType, ListPropsType} from "./Typisation";
 
 type StateType = ListPropsType[]
 type ActionType =
@@ -8,9 +8,9 @@ type ActionType =
     | changeFilterACType
     | ChangeTitleForTodolistACType
 
-const IniState:StateType =[]
+const IniState: StateType = []
 
-export const reducerForShopList = (state: StateType = IniState, action: ActionType) => {
+export const reducerForShopList = (state: StateType = IniState, action: ActionType): StateType => {
     switch (action.type) {
         case "ADD-SHOPLIST" :
             const newShopList: ListPropsType
@@ -24,12 +24,14 @@ export const reducerForShopList = (state: StateType = IniState, action: ActionTy
                 : el)
         case "CHANGE-TITLE-FOR-TODOLIST" :
             return state.map(el => el.id === action.payload.shopListID ? {...el, title: action.payload.newTitle} : el)
-
+        default:
+            return state
     }
+
 };
 
 type AddShopListACType = ReturnType<typeof addShopListAC>
-const addShopListAC = (newShopListTitle: string, newID: string) => {
+export const addShopListAC = (newShopListTitle: string, newID: string) => {
     return {
         type: "ADD-SHOPLIST",
         payload: {
@@ -40,7 +42,7 @@ const addShopListAC = (newShopListTitle: string, newID: string) => {
 }
 
 type RemoveShopListACType = ReturnType<typeof removeShopListAC>
-const removeShopListAC = (shopListID: string) => {
+export const removeShopListAC = (shopListID: string) => {
     return {
         type: "REMOVE-SHOPLIST",
         payload: {
@@ -50,7 +52,7 @@ const removeShopListAC = (shopListID: string) => {
 }
 
 type changeFilterACType = ReturnType<typeof changeFilterAC>
-const changeFilterAC = (shopListID: string, newFilterValue: string) => {
+export const changeFilterAC = (shopListID: string, newFilterValue: FilterType) => {
     return {
         type: "CHANGE-FILTER",
         payload: {
@@ -60,8 +62,8 @@ const changeFilterAC = (shopListID: string, newFilterValue: string) => {
     } as const
 }
 
-type ChangeTitleForTodolistACType = ReturnType<typeof changeTitleForTodolistAC>
-const changeTitleForTodolistAC = (shopListID: string, newTitle: string) => {
+export type ChangeTitleForTodolistACType = ReturnType<typeof changeTitleForTodolistAC>
+export const changeTitleForTodolistAC = (shopListID: string, newTitle: string) => {
     return {
         type: "CHANGE-TITLE-FOR-TODOLIST",
         payload: {

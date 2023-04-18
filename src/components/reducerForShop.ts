@@ -10,6 +10,7 @@ type ActionType =
     | changeCartStatusForGoodsACType
     | deleteGoodACType
     | addGoodACType
+    | addGoodListACType
 
 
 export const reducerForGoods = (state: StateType = IniState, action: ActionType): StateType => {
@@ -40,10 +41,19 @@ export const reducerForGoods = (state: StateType = IniState, action: ActionType)
             }
         }
         case 'ADD-GOOD': {
-         let newGood = {id: v1(), title: action.payload.newTitle, expectedPrice: '$1.99', realPrice: '$1.99', inCart: false};
+            let newGood = {
+                id: v1(),
+                title: action.payload.newTitle,
+                expectedPrice: '$1.99',
+                realPrice: '$1.99',
+                inCart: false
+            };
             return {
                 ...state, [action.payload.shopListID]: [newGood, ...state[action.payload.shopListID]]
             }
+        }
+        case  'ADD-GOOD-LIST': {
+            return {...state, [action.payload.shopListID]: []}
         }
         default :
             return state
@@ -55,8 +65,9 @@ type changeTitleForGoodsACType = ReturnType<typeof changeTitleForGoodsAC>
 type changeCartStatusForGoodsACType = ReturnType<typeof changeCartStatusForGoodsAC>
 type deleteGoodACType = ReturnType<typeof deleteGoodAC>
 type addGoodACType = ReturnType<typeof addGoodAC>
+type addGoodListACType = ReturnType<typeof addGoodListAC>
 
-const changeTitleForGoodsAC = (shopListID: string, goodId: string, newTitle: string) => {
+export const changeTitleForGoodsAC = (shopListID: string, goodId: string, newTitle: string) => {
     return {
         type: 'CHANGE-TITLE-FOR-GOODS',
         payload: {
@@ -67,7 +78,7 @@ const changeTitleForGoodsAC = (shopListID: string, goodId: string, newTitle: str
     } as const
 
 }
-const changeCartStatusForGoodsAC = (shopListID: string, goodId: string, checked: boolean) => {
+export const changeCartStatusForGoodsAC = (shopListID: string, goodId: string, checked: boolean) => {
     return {
         type: 'CHANGE-CARD-STATUS-FOR-GOODS',
         payload: {
@@ -78,7 +89,7 @@ const changeCartStatusForGoodsAC = (shopListID: string, goodId: string, checked:
     } as const
 
 }
-const deleteGoodAC = (shopListID: string, goodID: string) => {
+export const deleteGoodAC = (shopListID: string, goodID: string) => {
     return {
         type: 'DELETE-GOOD',
         payload: {
@@ -88,12 +99,21 @@ const deleteGoodAC = (shopListID: string, goodID: string) => {
     } as const
 
 }
-const addGoodAC = (shopListID: string, newTitle: string) => {
+export const addGoodAC = (shopListID: string, newTitle: string) => {
     return {
         type: 'ADD-GOOD',
         payload: {
             shopListID,
             newTitle
+        }
+    } as const
+
+}
+export const addGoodListAC = (shopListID: string) => {
+    return {
+        type: 'ADD-GOOD-LIST',
+        payload: {
+            shopListID
         }
     } as const
 
